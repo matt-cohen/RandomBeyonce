@@ -1,0 +1,11 @@
+<form method="put" action= "/sets">
+	Edit a setlist: 
+	<br />
+	Set Name: <input type="text" name="name" size="50" value= <%= 'set["name"]' %>/>
+	<br />
+	Videos: <textarea name="vidnums" rows="10" cols="50" value = <%= 'set["vidnums"]' %>></textarea>
+	<br />
+	Description: <input type="text" name="description" size="120" value=<%= 'set["description"]' %>/>
+	<br />
+	<input type="submit" value="Edit your set!"/>
+</form>
