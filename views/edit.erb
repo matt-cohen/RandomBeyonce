@@ -1,11 +1,14 @@
 <form method="put" action= "/sets">
 	Edit a setlist: 
 	<br />
-	Set Name: <input type="text" name="name" size="50" value= <%= 'set["name"]' %>/>
+	Set Name: <input type="text" name="name" size="50" placeholder= <%= set["name"]  %>> 
 	<br />
-	Videos: <textarea name="vidnums" rows="10" cols="50" value = <%= 'set["vidnums"]' %>></textarea>
+	Videos: <textarea name="vidnums" rows="10" cols="50" placeholder = <%= set["vidnums"] %>>
+	</textarea>
 	<br />
-	Description: <input type="text" name="description" size="120" value=<%= 'set["description"]' %>/>
+	Description: <input type="text" name="description" size="120" placeholder=<%= set["description"] %>/>
 	<br />
 	<input type="submit" value="Edit your set!"/>
 </form>
+
+<!-- How do I find the specific setname? -->

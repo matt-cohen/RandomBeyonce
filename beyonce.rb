@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader'
+require 'pry'
 
 configure do
     enable :sessions
@@ -49,13 +50,14 @@ get '/sets/:setname/play' do
     first = @first_vid
     rest = @rest_of_vids
 
-    vid_playlist = '<iframe width="560" height="315" src="https://www.youtube.com/v/' + @first_vid + '?version=3&loop=1&playlist=' + @rest_of_vids + '" frameborder="0" allowfullscreen></iframe>'
+    vid_playlist = '<iframe width="750" height="500" src="https://www.youtube.com/v/' + @first_vid + '?version=3&loop=1&playlist=' + @rest_of_vids + '" frameborder="0" allowfullscreen></iframe>'
 
     erb :display, :locals => {:name => name, :vid_playlist => vid_playlist, :first => first, :rest => rest}
 end
 
 get '/sets/:setname/edit' do
     name = params[:setname]
+    # binding.pry
     erb :edit, :locals => {:set => session[:list][name]}
 end
 
@@ -84,8 +86,11 @@ end
 
 
 
-put '/sets/beyonce' do
-    #update a specific set
+put '/sets' do
+	name = params[:name]
+
+
+    erb :sets, :locals => {:name => name}
 end
 
 delete '/sets/beyonce' do
