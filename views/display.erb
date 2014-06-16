@@ -1,3 +1,12 @@
 <%= name %>
 </br>
 <%= vid_playlist %>
+
+
+
+<div id="functions">
+        <form method="get" action="/sets/<%= name %>"
+            <input type="hidden" name="_method" value="delete"/>
+            <button type="submit" name="button" class="button">Delete Set</button>
+        </form>
+</div>

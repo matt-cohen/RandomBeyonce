@@ -1,27 +1,13 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'pry'
+require 'rubocop'
+
+use Rack::MethodOverride
 
 configure do
     enable :sessions
 end
-
-# def list_of_videos()
-#     youtube = ['<iframe width="1280" height="720" src="//www.youtube.com/embed/2EwViQxSJJQ" frameborder="0" allowfullscreen></iframe>', '<iframe width="1280" height="720" src="//www.youtube.com/embed/bnVUHWCynig" frameborder="0" allowfullscreen></iframe>', '<iframe width="1280" height="720" src="//www.youtube.com/embed/AWpsOqh8q0M" frameborder="0" allowfullscreen></iframe>', '<iframe width="1280" height="720" src="//www.youtube.com/embed/LXXQLa-5n5w" frameborder="0" allowfullscreen></iframe>', '<iframe width="1280" height="720" src="//www.youtube.com/embed/p1JPKLa-Ofc" frameborder="0" allowfullscreen></iframe>']
-#     return youtube[rand(youtube.length)]
-# end
-
-# sets = Hash.new
-
-# def list_sets()
-  
-# end
-
-# def list_sets()
-#     session[:list].each do |set|
-#         return set
-#     end
-# end
 
 get '/' do
     session[:list] ||= {} 
@@ -72,27 +58,19 @@ post '/sets' do
     erb :sets, :locals => {:list => session[:list]}
 end
 
-# get '/sets/beyonce' do
-#     set_name = params[:name]
-#     session[:list][]
-#     erb :display, :locals => {:set_name => set_name, :set_videos => set_videos}
-# end
-
-# get '/sets/beyonce/play' do
-#    current_video_list = session[:list][params[:button]]
-
-#    erb :display
-# end
-
-
+get '/sets/:name' do
+    name = params[:name]
+    session[:list].delete(name)
+    redirect to('/sets')
+    erb :display, :locals => {:list => session[:list]}
+end
 
 put '/sets' do
 	name = params[:name]
-
-
-    erb :sets, :locals => {:name => name}
+	videos = params[:vidnums]
+    videos = videos.split("\r\n")
+    session[:list][params[:name]] = {"name" => params[:name], "vidnums" => videos, "description" => params[:description]}
+    erb :sets, :locals => {:list => session[:list]}
 end
 
-delete '/sets/beyonce' do
-    #delete a specific set
-end
+
